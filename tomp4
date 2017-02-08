@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#this file should be places in /usr/local/bin
+
+#get file without ext
+FILENAME=${1%.*}
+FILEEXTENSION="${1##*.}"
+
+if [ "$FILEEXTENSION" = "avi" ]; then
+	#convert the avi
+	avconv -i "$1" -c:v libx264 -c:a copy "$FILENAME.mp4"
+elif [ "$FILEEXTENSION" = "mkv" ]; then
+	#convert mkv
+	ffmpeg -i "$1" -codec copy "$FILENAME.mkv"
+else
+	echo "Not found"
+fi
+
